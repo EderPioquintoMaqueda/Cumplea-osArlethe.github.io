@@ -499,7 +499,7 @@
         }
 
         /* ======================================================================
-           NUEVOS ESTILOS: EL TAMAGOTCHI RETRO Y AVATAR MEJORADO (SIN PELONA)
+           NUEVOS ESTILOS: EL TAMAGOTCHI RETRO Y AVATAR MEJORADO (CON CABELLO ABUNDANTE)
            ====================================================================== */
         .seccion-tamagotchi {
             margin: 60px auto;
@@ -554,7 +554,7 @@
             transition: transform 0.2s ease;
         }
 
-        /* Control de visualización por clases CSS (Altamente estable) */
+        /* Control de visualización por clases CSS (Estable, previene fallos) */
         #avatarVisual #capaSudadera { display: none; }
         #avatarVisual #capaAudifonos { display: none; }
         #avatarVisual #capaCardigan { display: block; }
@@ -986,10 +986,7 @@
                 
                 <!-- Pila de Vinilos Locales -->
                 <div class="pila-discos">
-                    <!-- ========================================== -->
-                    <!-- CONFIGURACIÓN DE PISTAS LOCALES            -->
-                    <!-- Estructura: 'Nombre Archivo', 'Color Etiqueta', 'Ruta Imagen Portada' -->
-                    <!-- ========================================== -->
+                    <!-- Configuración de pistas locales desde carpetas /music y /music_portada -->
                     <div class="disco-item" onclick="cargarDiscoLocal('lights_up', '#E76F51', 'music_portada/lights_up.jpg')">
                         <div class="disco-color-previa" style="background-image: url('music_portada/lights_up.jpg');"></div>
                         <span class="disco-titulo-cancion">1. Lights Up</span>
@@ -1036,13 +1033,13 @@
 
             </div>
 
-            <!-- Reproductor de Audio HTML5 oculto (Controla la música de fondo seleccionada) -->
+            <!-- Estatus de canción reproduciendo -->
             <div class="reproductor-estatus-pista">
                 <span id="nombreCancion">Escoge un vinilo para reproducir música ✦</span>
             </div>
             
+            <!-- Reproductor de Audio HTML5 -->
             <audio id="musicaFondo" loop preload="auto">
-                <source id="fuenteAudioMp3" src="" type="audio/mpeg">
                 Tu navegador no soporta el audio.
             </audio>
         </section>
@@ -1131,7 +1128,7 @@
                         
                         <!-- CABELLO NEGRO COMPLETO (Abundante, denso, lacio, caída hasta los hombros, partido a la mitad) -->
                         <g fill="#1A1A1A">
-                            <!-- Corona y parte superior del cabello (Sin calvas) -->
+                            <!-- Corona y parte superior del cabello (Thick scalp) -->
                             <rect x="10" y="2" width="12" height="1" />
                             <rect x="8" y="3" width="16" height="1" />
                             <rect x="7" y="4" width="18" height="1" />
@@ -1169,8 +1166,8 @@
 
                         <!-- SUDADERA COZY VERDE SALVIA (Oculta por defecto) -->
                         <g id="capaSudadera">
-                            <path d="M8 18h16v1H8zm-1 1h18v1H7zm-1 2h20v1H6zm0 1h20v1H6zm1 2h18v1H7z" fill="#E63946" />
-                            <rect x="13" y="19" width="6" height="3" fill="#B71C1C" /> <!-- Bolsa del suéter -->
+                            <path d="M8 18h16v1H8zm-1 1h18v1H7zm-1 2h20v1H6zm0 1h20v1H6zm1 2h18v1H7z" fill="#2A9D8F" />
+                            <rect x="13" y="19" width="6" height="3" fill="#20776D" /> <!-- Bolsa del suéter -->
                         </g>
 
                         <!-- JEANS AZUL CLARO DE TIRO ALTO -->
@@ -1286,7 +1283,6 @@
         const pantallaInicio = document.getElementById('pantallaInicio');
         const contenidoPrincipal = document.getElementById('contenidoPrincipal');
         const musicaFondo = document.getElementById('musicaFondo');
-        const fuenteAudioMp3 = document.getElementById('fuenteAudioMp3');
         const botonPlay = document.getElementById('botonPlay');
         const iconoPlay = document.getElementById('iconoPlay');
         const iconoPause = document.getElementById('iconoPause');
@@ -1335,7 +1331,7 @@
             }
         }
 
-        // Play / Pause manual desde el reproductor superior
+        // Play / Pause manual
         function conmutarReproductor() {
             try {
                 if (musicaFondo.paused) {
@@ -1485,7 +1481,7 @@
         }
 
         // ======================================================================
-        // NUEVA INTERACTIVIDAD: EL TOCADISCOS LOCAL REPRODUCIENDO .MP3 Y COVERS
+        // NUEVA INTERACTIVIDAD CORREGIDA: EL TOCADISCOS LOCAL REPRODUCIENDO DIRECTO
         // ======================================================================
         function cargarDiscoLocal(nombreArchivo, colorEtiqueta, rutaPortada) {
             try {
@@ -1498,9 +1494,9 @@
                 brazo.classList.remove('colocado');
 
                 setTimeout(() => {
-                    // Configurar la nueva fuente de audio con el .mp3 de la carpeta /music
+                    // Pausar el audio, cargar la nueva ruta local directa al reproductor principal y cargarlo
                     musicaFondo.pause();
-                    fuenteAudioMp3.src = 'music/' + nombreArchivo + '.mp3';
+                    musicaFondo.src = 'music/' + nombreArchivo + '.mp3';
                     musicaFondo.load();
 
                     // Cambiar el estilo de color y asignar la portada de álbum física
@@ -1522,7 +1518,7 @@
                         playPromise.then(() => {
                             actualizarInterfazAudio(true);
                         }).catch(err => {
-                            console.log("Error en reproducción automática:", err);
+                            console.log("La reproducción automática requiere interacción o el archivo tiene problemas de códec:", err);
                         });
                     }
                 }, 600);
@@ -1533,7 +1529,7 @@
         }
 
         // ======================================================================
-        // NUEVA INTERACTIVIDAD: EL TAMAGOTCHI (CLASES CSS SOLIDAS)
+        // NUEVA INTERACTIVIDAD CORREGIDA: EL TAMAGOTCHI (CLASES CSS SOLIDAS)
         // ======================================================================
         const avatar = document.getElementById('avatarVisual');
         const alerta = document.getElementById('tamagotchiAlerta');
@@ -1541,7 +1537,7 @@
 
         let temporizadorLimpiezaAvatar;
 
-        // Limpia clases de animación y estados
+        // Limpia clases de animación y estados de ropa/audífonos
         function resetearAvatar() {
             avatar.className = 'pixel-avatar';
             avatar.classList.remove('con-sudadera');
@@ -1571,7 +1567,7 @@
             }
         }
 
-        // Acción 2: Poner Sudadera Cozy (Manipula clases CSS robustamente)
+        // Acción 2: Poner Sudadera Cozy (Manipula clases CSS de forma robusta)
         function ponerSudadera() {
             try {
                 clearTimeout(temporizadorLimpiezaAvatar);
@@ -1580,7 +1576,7 @@
                 alerta.textContent = "¡Misión anti-frío activada! 📦✨";
                 alerta.classList.add('visible');
 
-                // Toggle robusto de la clase sudadera sobre el SVG
+                // Toggle de la clase sudadera sobre el SVG
                 avatar.classList.toggle('con-sudadera');
 
                 temporizadorLimpiezaAvatar = setTimeout(() => {
