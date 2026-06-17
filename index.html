@@ -191,7 +191,7 @@
         }
 
         /* ======================================================================
-           SECCIÓN DE FOTOGRAFÍAS (Álbum Digital Polaroid)
+           SECCIÓN DE FOTOGRAFÍAS (Álbum Creativo - Scrapbook)
            ====================================================================== */
         .seccion-album {
             margin-bottom: 80px;
@@ -199,7 +199,7 @@
 
         .seccion-titulo {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .seccion-titulo h3 {
@@ -222,28 +222,74 @@
         .grid-album {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            gap: 50px;
             padding: 10px;
         }
 
-        /* Tarjeta Estilo Polaroid */
+        /* Tarjeta Estilo Polaroid Personalizada (Álbum de Recortes) */
         .tarjeta-recuerdo {
             background-color: var(--color-tarjeta);
             padding: 15px 15px 25px 15px;
             border-radius: 2px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.01);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative;
         }
 
-        /* Rotaciones sutiles alternativas en pantallas de escritorio */
-        @media (min-width: 768px) {
-            .tarjeta-recuerdo:nth-child(1) { transform: rotate(-1.5deg); }
-            .tarjeta-recuerdo:nth-child(2) { transform: rotate(1deg); }
-            .tarjeta-recuerdo:nth-child(3) { transform: rotate(-1deg); }
-            .tarjeta-recuerdo:nth-child(4) { transform: rotate(1.5deg); }
-            .tarjeta-recuerdo:nth-child(5) { transform: rotate(-0.5deg); }
+        /* Cintas Adhesivas Decorativas (Washi Tape CSS) */
+        .tarjeta-recuerdo::before {
+            content: "";
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95px;
+            height: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            z-index: 10;
+            opacity: 0.85;
+        }
+
+        /* Variación de rotaciones y cintas para simular un diseño manual */
+        .tarjeta-recuerdo:nth-child(1) {
+            transform: rotate(-2deg);
+        }
+        .tarjeta-recuerdo:nth-child(1)::before {
+            background-color: rgba(244, 172, 183, 0.5); /* Washi rosa */
+            transform: translateX(-50%) rotate(-4deg);
+            border-left: 2px dashed rgba(255, 255, 255, 0.4);
+            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+        }
+
+        .tarjeta-recuerdo:nth-child(2) {
+            transform: rotate(2.5deg);
+        }
+        .tarjeta-recuerdo:nth-child(2)::before {
+            background-color: rgba(204, 213, 174, 0.6); /* Washi verde salvia */
+            transform: translateX(-48%) rotate(3deg);
+            border-left: 2px dashed rgba(255, 255, 255, 0.4);
+            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+        }
+
+        .tarjeta-recuerdo:nth-child(3) {
+            transform: rotate(-1.5deg);
+        }
+        .tarjeta-recuerdo:nth-child(3)::before {
+            background-color: rgba(212, 163, 115, 0.5); /* Washi dorado suave */
+            transform: translateX(-52%) rotate(-2deg);
+            border-left: 2px dashed rgba(255, 255, 255, 0.4);
+            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+        }
+
+        .tarjeta-recuerdo:nth-child(4) {
+            transform: rotate(1.8deg);
+        }
+        .tarjeta-recuerdo:nth-child(4)::before {
+            background-color: rgba(230, 200, 220, 0.6); /* Washi lila translúcido */
+            transform: translateX(-50%) rotate(5deg);
+            border-left: 2px dashed rgba(255, 255, 255, 0.4);
+            border-right: 2px dashed rgba(255, 255, 255, 0.4);
         }
 
         .tarjeta-recuerdo:hover {
@@ -258,6 +304,19 @@
             overflow: hidden;
             border-radius: 1px;
             background-color: #ECE7E1; /* Color provisional de carga */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Placeholder elegante si la imagen tarda en cargar o no existe */
+        .tarjeta-imagen-wrapper::before {
+            content: "📸";
+            font-size: 2rem;
+            opacity: 0.15;
+            position: absolute;
+            z-index: 1;
         }
 
         .tarjeta-imagen {
@@ -265,6 +324,8 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .tarjeta-recuerdo:hover .tarjeta-imagen {
@@ -315,26 +376,58 @@
         }
 
         /* ======================================================================
-           SECCIÓN DE MENSAJE FINAL
+           BOTÓN DE CELEBRACIÓN Y SECCIÓN FINAL (Último Detalle)
            ====================================================================== */
-        .seccion-final {
+        .seccion-celebracion-final {
             margin: 100px 0 140px 0;
             text-align: center;
             padding: 0 20px;
             position: relative;
         }
 
-        .bloque-mensaje-final {
-            max-width: 650px;
-            margin: 0 auto;
+        .boton-celebrar {
+            background-color: var(--color-texto);
+            color: var(--color-fondo);
+            border: none;
+            padding: 15px 45px;
+            font-size: 0.9rem;
+            font-family: var(--fuente-cuerpo);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(61, 52, 46, 0.15);
+            position: relative;
+            z-index: 20;
         }
 
-        .bloque-mensaje-final p {
+        .boton-celebrar:hover {
+            transform: scale(1.05);
+            background-color: var(--color-principal);
+        }
+
+        .contenedor-mensaje-final-revelado {
+            max-width: 650px;
+            margin: 60px auto 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+            display: none; /* Se activa tras pulsar el botón */
+        }
+
+        .contenedor-mensaje-final-revelado.activo {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contenedor-mensaje-final-revelado p {
             font-family: var(--fuente-titulos);
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             line-height: 1.8;
             color: var(--color-texto);
-            margin-bottom: 25px;
+            font-style: italic;
         }
 
         .firma {
@@ -345,16 +438,112 @@
             font-size: 0.85rem;
             color: var(--color-principal);
             display: block;
-            margin-top: 25px;
+            margin-top: 35px;
         }
 
-        /* Elemento decorativo de vacas en esquinas inferiores */
+        /* Elemento decorativo de vacas en el pie del mensaje */
         .vaca-decoracion {
             font-size: 1.5rem;
             opacity: 0.25;
             user-select: none;
             display: inline-block;
             margin: 10px;
+        }
+
+        /* ======================================================================
+           AVATAR PIXEL ART (Acompañante interactivo mejorado)
+           ====================================================================== */
+        .avatar-pixel-container {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 500;
+            display: flex;
+            align-items: flex-end;
+            pointer-events: none;
+        }
+
+        /* Burbuja de diálogo del avatar */
+        .avatar-burbuja {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            color: var(--color-texto);
+            margin-bottom: 55px;
+            margin-left: 5px;
+            max-width: 170px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: relative;
+            pointer-events: auto;
+        }
+
+        .avatar-burbuja::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 20px;
+            width: 10px;
+            height: 10px;
+            background-color: #FFFFFF;
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transform: rotate(45deg);
+        }
+
+        .avatar-burbuja.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Pista Visual Continua sobre el avatar */
+        .avatar-pista-visual {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            background-color: var(--color-texto);
+            color: var(--color-fondo);
+            padding: 2px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: opacity 0.3s;
+        }
+
+        /* Gráfico Vectorial de Vaquita Pixel Art (Auto-contenido) */
+        .vaquita-pixel-art-wrapper {
+            position: relative;
+            pointer-events: auto;
+        }
+
+        .vaquita-pixel-art {
+            width: 48px;
+            height: 48px;
+            image-rendering: pixelated;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            animation: vaquitaIdle 3s infinite ease-in-out;
+        }
+
+        .vaquita-pixel-art:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .vaquita-pixel-art:hover + .avatar-pista-visual {
+            opacity: 0; /* Se oculta la pista cuando pasamos el ratón encima */
+        }
+
+        @keyframes vaquitaIdle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
         /* ======================================================================
@@ -367,7 +556,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none; /* Evita bloquear interacciones o clics */
-            z-index: 999;
+            z-index: 100;
             overflow: hidden;
         }
 
@@ -377,7 +566,7 @@
             font-size: 24px;
             user-select: none;
             opacity: 0;
-            animation: flotarUp 9s linear infinite;
+            animation: flotarUp 12s linear infinite; /* Movimiento lento y discreto */
         }
 
         @keyframes flotarUp {
@@ -386,13 +575,37 @@
                 opacity: 0;
             }
             15% {
-                opacity: 0.7;
+                opacity: 0.45;
             }
             85% {
-                opacity: 0.7;
+                opacity: 0.45;
             }
             100% {
                 transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Partícula de la explosión del botón */
+        .particula-explosion {
+            position: absolute; /* Cambiado a absoluto para anclarse correctamente con el scroll de la página */
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+            font-size: 22px;
+            animation: explotarFadout 3s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes explotarFadout {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--mx), var(--my)) scale(0.6) rotate(var(--rot));
                 opacity: 0;
             }
         }
@@ -406,13 +619,21 @@
                 font-size: 1.8rem;
             }
             .grid-album {
-                gap: 25px;
+                gap: 40px;
             }
             .tarjeta-imagen-wrapper {
                 height: 270px;
             }
-            .bloque-mensaje-final p {
+            .contenedor-mensaje-final-revelado p {
                 font-size: 1.15rem;
+            }
+            .avatar-pixel-container {
+                bottom: 15px;
+                left: 15px;
+            }
+            .avatar-burbuja {
+                margin-bottom: 45px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -433,7 +654,7 @@
             <!-- /MENSAJE_BIENVENIDA -->
         </div>
 
-        <button class="boton-comenzar" onclick="desbloquearRegalo()">Comenzar</button>
+        <button class="boton-comenzar" id="btnComenzar" onclick="desbloquearRegalo()">Comenzar</button>
     </div>
 
     <!-- ====================================================================== -->
@@ -483,7 +704,7 @@
                         <!-- FOTO_CHESTER                               -->
                         <!-- Reemplazar archivo: fotos/chester.jpg      -->
                         <!-- ========================================== -->
-                        <img src="fotos/chester.jpg" alt="Chester" class="tarjeta-imagen" onerror="this.src='https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=600'">
+                        <img src="fotos/chester.jpg" alt="Chester" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
                         <!-- MENSAJE_CHESTER -->
@@ -499,7 +720,7 @@
                         <!-- FOTO_MINION                                -->
                         <!-- Reemplazar archivo: fotos/minion.jpg       -->
                         <!-- ========================================== -->
-                        <img src="fotos/minion.jpg" alt="Minion" class="tarjeta-imagen" onerror="this.src='https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?auto=format&fit=crop&q=80&w=600'">
+                        <img src="fotos/minion.jpg" alt="Minion" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
                         <!-- MENSAJE_MINION -->
@@ -512,10 +733,10 @@
                 <div class="tarjeta-recuerdo">
                     <div class="tarjeta-imagen-wrapper">
                         <!-- ========================================== -->
-                        <!-- FOTO_GRADUACION_ARLETHE                    -->
+                        <!-- FOTO_GRADUACION                            -->
                         <!-- Reemplazar archivo: fotos/graduacion.jpg   -->
                         <!-- ========================================== -->
-                        <img src="fotos/graduacion.jpg" alt="Graduación" class="tarjeta-imagen" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=600'">
+                        <img src="fotos/graduacion.jpg" alt="Graduación" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
                         <!-- MENSAJE_GRADUACION -->
@@ -531,7 +752,7 @@
                         <!-- FOTO_TITULO                                -->
                         <!-- Reemplazar archivo: fotos/titulo.jpg       -->
                         <!-- ========================================== -->
-                        <img src="fotos/titulo.jpg" alt="Título obtenido" class="tarjeta-imagen" onerror="this.src='https://images.unsplash.com/photo-1511629091441-ee46146481b6?auto=format&fit=crop&q=80&w=600'">
+                        <img src="fotos/titulo.jpg" alt="Título obtenido" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
                         <!-- MENSAJE_TITULO -->
@@ -560,13 +781,19 @@
             </div>
         </section>
 
-        <!-- MENSAJE FINAL -->
-        <section class="seccion-final">
-            <div class="bloque-mensaje-final">
-                <div style="font-size: 1.5rem; color: var(--color-principal); margin-bottom: 25px;">✦</div>
+        <!-- SECCIÓN DE CELEBRACIÓN Y REVELACIÓN DEL MENSAJE FINAL -->
+        <section class="seccion-celebracion-final">
+            <button class="boton-celebrar" id="botonCelebrar" onclick="celebrarYRevelar(event)">Un último detalle</button>
+            
+            <div class="contenedor-mensaje-final-revelado" id="mensajeRevelado">
+                <div style="font-size: 1.2rem; color: var(--color-principal); margin-bottom: 25px;">✦</div>
                 
                 <!-- MENSAJE_FINAL -->
-                <p>Arlethe, que este cumpleaños te llene de alegrías infinitas, tranquilidad y sonrisas verdaderas. Eres una persona sumamente especial y con una luz maravillosa. Deseo que la vida te siga premiando con todo lo que mereces.</p>
+                <p>
+                    Lo mejor de esta página es todo lo que no aparece en ella.<br><br>
+                    Porque ninguna página puede resumir todo lo que eres.<br><br>
+                    Feliz cumpleaños, Arlethe.
+                </p>
                 <!-- /MENSAJE_FINAL -->
 
                 <span class="firma">Con mucho cariño</span>
@@ -580,13 +807,50 @@
 
     </div>
 
-    <!-- Contenedor flotante para los tulipanes, mariposas y detalles visuales -->
+    <!-- ====================================================================== -->
+    <!-- INTERFAZ INTERACTIVA DISCRETA (AVATAR PIXEL ART)                       -->
+    <!-- ====================================================================== -->
+    <div class="avatar-pixel-container" id="avatarVaquita">
+        <div class="avatar-burbuja" id="burbujaTexto">¡Hola Arlethe!</div>
+        
+        <div class="vaquita-pixel-art-wrapper">
+            <!-- Gráfico Vectorial de Vaquita Pixel Art (Auto-contenido) -->
+            <svg class="vaquita-pixel-art" id="vaquitaSvg" onclick="hablarAvatar()" viewBox="0 0 16 16" width="48" height="48" style="shape-rendering: crispEdges;">
+                <!-- Base Cabeza Blanca -->
+                <rect x="3" y="4" width="10" height="9" fill="#FFFFFF" />
+                <!-- Orejas y Cuernos -->
+                <rect x="2" y="3" width="2" height="2" fill="#FFFFFF" />
+                <rect x="12" y="3" width="2" height="2" fill="#FFFFFF" />
+                <rect x="4" y="2" width="1" height="2" fill="#D4A373" />
+                <rect x="11" y="2" width="1" height="2" fill="#D4A373" />
+                <!-- Manchas Negras del Rostro -->
+                <rect x="3" y="4" width="2" height="2" fill="#3D342E" />
+                <rect x="11" y="5" width="2" height="3" fill="#3D342E" />
+                <rect x="8" y="7" width="1" height="1" fill="#3D342E" />
+                <!-- Ojos Negros -->
+                <rect x="5" y="6" width="1" height="1" fill="#3D342E" />
+                <rect x="10" y="6" width="1" height="1" fill="#3D342E" />
+                <!-- Hocico Rosa -->
+                <rect x="5" y="9" width="6" height="3" fill="#F4ACB7" />
+                <!-- Orificios de la nariz -->
+                <rect x="6" y="10" width="1" height="1" fill="#3D342E" />
+                <rect x="9" y="10" width="1" height="1" fill="#3D342E" />
+                <!-- Detalle de Flor en la oreja -->
+                <rect x="1" y="5" width="1" height="1" fill="#CCD5AE" />
+                <rect x="2" y="5" width="1" height="1" fill="#F4ACB7" />
+            </svg>
+            <div class="avatar-pista-visual" id="pistaVisual">Tengo algo que decir... 👆</div>
+        </div>
+    </div>
+
+    <!-- Contenedor flotante para los tulipanes, mariposas y cerezas -->
     <div class="contenedor-animaciones" id="contenedorAnimaciones"></div>
 
     <!-- ======================================================================
-         LÓGICA JAVASCRIPT
+         LÓGICA JAVASCRIPT SEGURA (A PRUEBA DE ERRORES)
          ====================================================================== -->
     <script>
+        // Referencias a elementos DOM
         const pantallaInicio = document.getElementById('pantallaInicio');
         const contenidoPrincipal = document.getElementById('contenidoPrincipal');
         const musicaFondo = document.getElementById('musicaFondo');
@@ -596,50 +860,98 @@
         const nombreCancion = document.getElementById('nombreCancion');
         const contenedorAnimaciones = document.getElementById('contenedorAnimaciones');
 
-        // Extraer nombre amigable de la canción configurada
-        window.addEventListener('DOMContentLoaded', () => {
-            const fuenteAudio = musicaFondo.querySelector('source').src;
-            const nombreArchivo = fuenteAudio.substring(fuenteAudio.lastIndexOf('/') + 1);
-            nombreCancion.textContent = decodeURIComponent(nombreArchivo).replace(/_/g, ' ');
-        });
+        // Elementos del Avatar Vaquita
+        const burbujaTexto = document.getElementById('burbujaTexto');
+        const vaquitaSvg = document.getElementById('vaquitaSvg');
+        const pistaVisual = document.getElementById('pistaVisual');
 
-        // Función para dar inicio tras el clic en la bienvenida
-        function desbloquearRegalo() {
-            // Ocultar pantalla de inicio
-            pantallaInicio.style.opacity = '0';
-            pantallaInicio.style.visibility = 'hidden';
+        // Frases secretas del avatar
+        const frasesAvatar = [
+            "Muu-chas felicidades, Arlethe 🐄",
+            "Eres una persona muuu-y valiosa. ✨",
+            "¿Ya viste el video de la tuba? Me muuu-ero de la risa. 🎺",
+            "Que pases un cumpleaños muuu-ravilloso hoy. 🌷",
+            "Me dijeron que por aquí rondaban mariposas y tulipanes...",
+            "Me muuu-ero por contarte que eres genial. ✦",
+            "Sigue bajando, hay cosas lindas por leer."
+        ];
+        let fraseActualIndex = 0;
 
-            // Mostrar el sitio principal
-            contenidoPrincipal.style.display = 'block';
-            setTimeout(() => {
-                contenidoPrincipal.style.opacity = '1';
-            }, 50);
-
-            // Iniciar la música únicamente tras este clic del usuario
-            comenzarMusica();
-
-            // Lanzar los elementos flotantes decorativos
-            iniciarElementosDecorativos();
+        // Extraer nombre amigable de la canción de manera segura (No bloquea ejecución si falla)
+        try {
+            const sourceTag = musicaFondo.querySelector('source');
+            if (sourceTag && sourceTag.src) {
+                const fuenteAudio = sourceTag.src;
+                const nombreArchivo = fuenteAudio.substring(fuenteAudio.lastIndexOf('/') + 1);
+                nombreCancion.textContent = decodeURIComponent(nombreArchivo).replace(/_/g, ' ');
+            } else {
+                nombreCancion.textContent = "cancion.mp3";
+            }
+        } catch (e) {
+            console.log("No se pudo extraer la etiqueta de fuente de audio de manera automática:", e);
+            nombreCancion.textContent = "cancion.mp3";
         }
 
-        // Intento de reproducción de música
+        // Función para dar inicio tras el clic en la bienvenida (Sólida, a prueba de bloqueos)
+        function desbloquearRegalo() {
+            try {
+                // Ocultar pantalla de inicio de forma segura
+                pantallaInicio.style.opacity = '0';
+                pantallaInicio.style.visibility = 'hidden';
+
+                // Mostrar el sitio principal
+                contenidoPrincipal.style.display = 'block';
+                setTimeout(() => {
+                    contenidoPrincipal.style.opacity = '1';
+                }, 50);
+
+                // Iniciar música
+                comenzarMusica();
+
+                // Lanzar los elementos flotantes
+                iniciarElementosDecorativos();
+
+                // Saludo inicial de la vaquita
+                setTimeout(() => {
+                    desplegarMensajeAvatar("¡Hola Arlethe! Qué lindo verte por aquí. 🐮");
+                }, 2000);
+            } catch (err) {
+                console.error("Error en desbloquearRegalo:", err);
+            }
+        }
+
+        // Intento de reproducción de música seguro
         function comenzarMusica() {
-            musicaFondo.play().then(() => {
-                actualizarInterfazAudio(true);
-            }).catch(e => {
-                console.log("La reproducción requirió una acción explícita o el archivo no se ha cargado.");
+            try {
+                const playPromise = musicaFondo.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        actualizarInterfazAudio(true);
+                    }).catch(e => {
+                        console.log("La reproducción automática fue bloqueada por el navegador o requiere interacción directa.");
+                        actualizarInterfazAudio(false);
+                    });
+                } else {
+                    actualizarInterfazAudio(true);
+                }
+            } catch (e) {
+                console.log("Error intentando reproducir el audio de fondo:", e);
                 actualizarInterfazAudio(false);
-            });
+            }
         }
 
         // Play / Pause manual
         function conmutarReproductor() {
-            if (musicaFondo.paused) {
-                musicaFondo.play();
-                actualizarInterfazAudio(true);
-            } else {
-                musicaFondo.pause();
-                actualizarInterfazAudio(false);
+            try {
+                if (musicaFondo.paused) {
+                    musicaFondo.play();
+                    actualizarInterfazAudio(true);
+                } else {
+                    musicaFondo.pause();
+                    actualizarInterfazAudio(false);
+                }
+            } catch (e) {
+                console.log("Error al pausar o reproducir audio:", e);
             }
         }
 
@@ -653,41 +965,128 @@
             }
         }
 
-        // Elementos visuales flotantes (Tulipanes, Mariposas, Vacas y Estrellas)
-        const figurasDecorativas = ['🌷', '🦋', '🐮', '✨', '✦'];
+        // Elementos visuales flotantes (Tulipanes, Mariposas, Cerezas, Estrellas)
+        const figurasDecorativas = ['🌷', '🦋', '🍒', '✨', '✦'];
 
         function fabricarElementoFlotante() {
-            const elemento = document.createElement('div');
-            elemento.classList.add('elemento-flotante');
-            
-            // Seleccionar elemento de la lista
-            elemento.textContent = figurasDecorativas[Math.floor(Math.random() * figurasDecorativas.length)];
+            try {
+                const elemento = document.createElement('div');
+                elemento.classList.add('elemento-flotante');
+                elemento.textContent = figurasDecorativas[Math.floor(Math.random() * figurasDecorativas.length)];
 
-            // Posición aleatoria horizontal
-            elemento.style.left = Math.random() * 100 + 'vw';
-            
-            // Escala aleatoria (16px a 36px)
-            const dimension = (Math.random() * 20) + 16;
-            elemento.style.fontSize = dimension + 'px';
+                elemento.style.left = Math.random() * 100 + 'vw';
+                
+                const dimension = (Math.random() * 14) + 14;
+                elemento.style.fontSize = dimension + 'px';
 
-            // Velocidad de la animación (7 a 13 segundos)
-            const tiempoAnimacion = (Math.random() * 6) + 7;
-            elemento.style.animationDuration = tiempoAnimacion + 's';
+                const tiempoAnimacion = (Math.random() * 6) + 10;
+                elemento.style.animationDuration = tiempoAnimacion + 's';
+                elemento.style.opacity = (Math.random() * 0.3) + 0.2;
 
-            // Opacidad ligera
-            elemento.style.opacity = (Math.random() * 0.4) + 0.3;
+                contenedorAnimaciones.appendChild(elemento);
 
-            contenedorAnimaciones.appendChild(elemento);
-
-            // Eliminar elemento después de completar el ciclo de subida
-            setTimeout(() => {
-                elemento.remove();
-            }, tiempoAnimacion * 1000);
+                setTimeout(() => {
+                    elemento.remove();
+                }, tiempoAnimacion * 1000);
+            } catch (e) {
+                console.log("Error fabricando elemento flotante:", e);
+            }
         }
 
         function iniciarElementosDecorativos() {
-            // Lanza un elemento flotante cada 1.2 segundos para mantener la pantalla elegante
-            setInterval(fabricarElementoFlotante, 1200);
+            setInterval(fabricarElementoFlotante, 2000);
+        }
+
+        // Lógica de interacción del avatar vaquita
+        function desplegarMensajeAvatar(texto) {
+            try {
+                burbujaTexto.textContent = texto;
+                burbujaTexto.classList.add('visible');
+                pistaVisual.style.opacity = '0'; // Ocultar pista si se interactúa
+                
+                setTimeout(() => {
+                    burbujaTexto.classList.remove('visible');
+                    pistaVisual.style.opacity = '0.8'; // Volver a mostrar pista con suavidad
+                }, 6000);
+            } catch (e) {
+                console.log("Error desplegando burbuja de diálogo:", e);
+            }
+        }
+
+        function hablarAvatar() {
+            const frase = frasesAvatar[fraseActualIndex];
+            desplegarMensajeAvatar(frase);
+            fraseActualIndex = (fraseActualIndex + 1) % frasesAvatar.length;
+        }
+
+        // Efecto de balanceo al hacer scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (vaquitaSvg) {
+                vaquitaSvg.style.transform = 'rotate(8deg) scale(1.05)';
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    vaquitaSvg.style.transform = 'rotate(0deg) scale(1)';
+                }, 150);
+            }
+        });
+
+        // Botón final: Ráfaga visual suave y revelación elegante del mensaje "Último Detalle"
+        function celebrarYRevelar(evento) {
+            try {
+                const boton = document.getElementById('botonCelebrar');
+                const mensajeFinal = document.getElementById('mensajeRevelado');
+                
+                // Obtener coordenadas absolutas del botón respecto al documento entero
+                const rect = boton.getBoundingClientRect();
+                const centroX = window.scrollX + rect.left + (rect.width / 2);
+                const centroY = window.scrollY + rect.top + (rect.height / 2);
+
+                const simbolosFestivos = ['🌷', '🦋', '🍒', '✨', '🌸', '✦'];
+                const totalParticulas = 40;
+
+                for (let i = 0; i < totalParticulas; i++) {
+                    const part = document.createElement('div');
+                    part.classList.add('particula-explosion');
+                    part.textContent = simbolosFestivos[Math.floor(Math.random() * simbolosFestivos.length)];
+                    
+                    part.style.left = centroX + 'px';
+                    part.style.top = centroY + 'px';
+
+                    const angulo = Math.random() * Math.PI * 2;
+                    const distancia = (Math.random() * 160) + 70;
+                    
+                    const mx = Math.cos(angulo) * distancia;
+                    const my = Math.sin(angulo) * distancia - (Math.random() * 60);
+                    const rot = (Math.random() * 360) + 120;
+
+                    part.style.setProperty('--mx', `${mx}px`);
+                    part.style.setProperty('--my', `${my}px`);
+                    part.style.setProperty('--rot', `${rot}deg`);
+
+                    document.body.appendChild(part);
+
+                    setTimeout(() => {
+                        part.remove();
+                    }, 3000);
+                }
+
+                // Ocultar botón suavemente y revelar el mensaje "Último Detalle"
+                boton.style.transition = 'opacity 0.6s, transform 0.6s';
+                boton.style.opacity = '0';
+                boton.style.transform = 'scale(0.8)';
+                
+                setTimeout(() => {
+                    boton.style.display = 'none';
+                    mensajeFinal.classList.add('activo');
+                }, 600);
+
+                setTimeout(() => {
+                    desplegarMensajeAvatar("¡Me muuu-ero de emoción! Un hermoso detalle. ❤️");
+                }, 1000);
+            } catch (err) {
+                console.log("Error al ejecutar animación de celebración:", err);
+            }
         }
     </script>
 </body>
