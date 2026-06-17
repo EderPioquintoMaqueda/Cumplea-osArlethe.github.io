@@ -128,66 +128,229 @@
             transition: opacity 1s ease-in-out;
         }
 
-        /* REPRODUCTOR DE MÚSICA */
-        .seccion-musica {
-            margin: 20px auto 60px auto;
-            max-width: 450px;
-        }
-
-        .reproductor {
-            background-color: var(--color-tarjeta);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        /* ======================================================================
+           ESTILO RECORTE DE REVISTA (Ransom Note Typography)
+           ====================================================================== */
+        .recorte-revista-contenedor {
             display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin: 35px auto 20px auto;
+            max-width: 100%;
+        }
+
+        .recorte-revista-contenedor span {
+            display: inline-block;
+            padding: 6px 12px;
+            color: #FFFFFF;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.15);
+            user-select: none;
+        }
+
+        /* Letras recortadas simulando fuentes, inclinaciones y colores aleatorios */
+        .recorte-revista-contenedor span:nth-child(5n+1) { background-color: #E76F51; font-family: 'Playfair Display', Georgia, serif; transform: rotate(-4deg) translateY(2px); font-size: 1.3rem; }
+        .recorte-revista-contenedor span:nth-child(5n+2) { background-color: #2A9D8F; font-family: 'Courier New', monospace; transform: rotate(3deg) translateY(-2px); font-size: 1.15rem; text-decoration: underline; }
+        .recorte-revista-contenedor span:nth-child(5n+3) { background-color: #E9C46A; font-family: 'Quicksand', sans-serif; transform: rotate(-2deg) translateY(4px); font-size: 1.25rem; color: #3D342E; }
+        .recorte-revista-contenedor span:nth-child(5n+4) { background-color: #F4ACB7; font-family: 'Times New Roman', serif; transform: rotate(5deg) translateY(-3px); font-size: 1.1rem; }
+        .recorte-revista-contenedor span:nth-child(5n+5) { background-color: #264653; font-family: Impact, Charcoal, sans-serif; transform: rotate(-5deg) translateY(1px); font-size: 1.4rem; letter-spacing: 1px; }
+
+        .llamar-atencion {
+            animation: pulsoLetrero 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulsoLetrero {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* ======================================================================
+           ESTILOS FUNCIÓN 1: EL TOCADISCOS LOCAL REPRODUCIENDO .MP3 Y COVERS
+           ====================================================================== */
+        .seccion-tocadiscos {
+            margin: 20px auto 60px auto;
+            max-width: 850px;
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .tocadiscos-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-around;
             align-items: center;
-            justify-content: space-between;
+            margin-top: 30px;
         }
 
-        .reproductor-info {
-            text-align: left;
-            flex-grow: 1;
-            margin-left: 20px;
-        }
-
-        .reproductor-titulo {
-            font-family: var(--fuente-cuerpo);
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: block;
-        }
-
-        .reproductor-sub {
-            font-family: var(--fuente-cuerpo);
-            font-size: 0.8rem;
-            color: #8C827A;
-            display: block;
-        }
-
-        .reproductor-boton {
-            background-color: var(--color-fondo);
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
+        /* Estructura del reproductor */
+        .tocadiscos-aparato {
+            position: relative;
+            width: 280px;
+            height: 240px;
+            background: #D4A373; /* Tono madera retro */
+            border-radius: 12px;
+            box-shadow: inset 0 -10px 0 rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.12);
+            border: 6px solid #B88B5C;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .reproductor-boton:hover {
-            transform: scale(1.05);
-            background-color: var(--color-rosa-pastel);
+        .tocadiscos-plato {
+            width: 170px;
+            height: 170px;
+            background: #3D342E;
+            border-radius: 50%;
+            border: 5px solid #2B2521;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .reproductor-boton svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--color-texto);
+        /* Vinilo rotatorio */
+        .vinilo-reproduciendo {
+            width: 150px;
+            height: 150px;
+            background: repeating-radial-gradient(circle, #1A1A1A, #1A1A1A 3px, #2C2C2C 6px, #1A1A1A 9px);
+            border-radius: 50%;
+            position: absolute;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .vinilo-reproduciendo.girando {
+            display: flex;
+            animation: rotarVinilo 3s linear infinite;
+        }
+
+        /* Portada de álbum local en el centro del vinilo */
+        .vinilo-centro-portada {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #E76F51;
+            border: 3px solid #FFF;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 4px rgba(0,0,0,0.4);
+        }
+
+        .vinilo-centro-portada img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Brazo mecánico */
+        .tocadiscos-brazo {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 16px;
+            height: 110px;
+            transform-origin: top center;
+            transform: rotate(-35deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 15;
+        }
+
+        .tocadiscos-brazo.colocado {
+            transform: rotate(10deg);
+        }
+
+        .tocadiscos-brazo-metal {
+            width: 6px;
+            height: 90px;
+            background: #CCCCCC;
+            border-radius: 3px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .tocadiscos-brazo-cabezal {
+            position: absolute;
+            bottom: -10px;
+            left: -4px;
+            width: 14px;
+            height: 20px;
+            background: #444;
+            border-radius: 2px;
+            transform: rotate(15deg);
+        }
+
+        /* Pila lateral de discos */
+        .pila-discos {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 250px;
+        }
+
+        .disco-item {
+            background: #1A1A1A;
+            color: #FFFFFF;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 3px 3px 0px #3D342E;
+        }
+
+        .disco-item:hover {
+            transform: translateX(6px);
+            box-shadow: 1px 1px 0px #3D342E;
+        }
+
+        .disco-color-previa {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #FFF;
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .disco-titulo-cancion {
+            font-size: 0.85rem;
+            font-family: var(--fuente-cuerpo);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Controlador de reproducción visual */
+        .reproductor-estatus-pista {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #8C827A;
+            font-weight: 600;
+        }
+
+        @keyframes rotarVinilo {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* ======================================================================
@@ -226,7 +389,7 @@
             padding: 10px;
         }
 
-        /* Tarjeta Estilo Polaroid Personalizada (Álbum de Recortes) */
+        /* Tarjeta Estilo Polaroid Personalizada */
         .tarjeta-recuerdo {
             background-color: var(--color-tarjeta);
             padding: 15px 15px 25px 15px;
@@ -237,7 +400,7 @@
             position: relative;
         }
 
-        /* Cintas Adhesivas Decorativas (Washi Tape CSS) */
+        /* Cintas Adhesivas Decorativas */
         .tarjeta-recuerdo::before {
             content: "";
             position: absolute;
@@ -251,45 +414,36 @@
             opacity: 0.85;
         }
 
-        /* Variación de rotaciones y cintas para simular un diseño manual */
-        .tarjeta-recuerdo:nth-child(1) {
-            transform: rotate(-2deg);
-        }
+        .tarjeta-recuerdo:nth-child(1) { transform: rotate(-2deg); }
         .tarjeta-recuerdo:nth-child(1)::before {
-            background-color: rgba(244, 172, 183, 0.5); /* Washi rosa */
+            background-color: rgba(244, 172, 183, 0.5); /* Rosa */
             transform: translateX(-50%) rotate(-4deg);
-            border-left: 2px dashed rgba(255, 255, 255, 0.4);
-            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+            border-left: 3px dotted rgba(255, 255, 255, 0.5);
+            border-right: 3px dotted rgba(255, 255, 255, 0.5);
         }
 
-        .tarjeta-recuerdo:nth-child(2) {
-            transform: rotate(2.5deg);
-        }
+        .tarjeta-recuerdo:nth-child(2) { transform: rotate(2.5deg); }
         .tarjeta-recuerdo:nth-child(2)::before {
-            background-color: rgba(204, 213, 174, 0.6); /* Washi verde salvia */
+            background-color: rgba(204, 213, 174, 0.6); /* Verde salvia */
             transform: translateX(-48%) rotate(3deg);
-            border-left: 2px dashed rgba(255, 255, 255, 0.4);
-            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+            border-left: 3px dotted rgba(255, 255, 255, 0.5);
+            border-right: 3px dotted rgba(255, 255, 255, 0.5);
         }
 
-        .tarjeta-recuerdo:nth-child(3) {
-            transform: rotate(-1.5deg);
-        }
+        .tarjeta-recuerdo:nth-child(3) { transform: rotate(-1.5deg); }
         .tarjeta-recuerdo:nth-child(3)::before {
-            background-color: rgba(212, 163, 115, 0.5); /* Washi dorado suave */
+            background-color: rgba(212, 163, 115, 0.5); /* Dorado */
             transform: translateX(-52%) rotate(-2deg);
-            border-left: 2px dashed rgba(255, 255, 255, 0.4);
-            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+            border-left: 3px dotted rgba(255, 255, 255, 0.5);
+            border-right: 3px dotted rgba(255, 255, 255, 0.5);
         }
 
-        .tarjeta-recuerdo:nth-child(4) {
-            transform: rotate(1.8deg);
-        }
+        .tarjeta-recuerdo:nth-child(4) { transform: rotate(1.8deg); }
         .tarjeta-recuerdo:nth-child(4)::before {
-            background-color: rgba(230, 200, 220, 0.6); /* Washi lila translúcido */
+            background-color: rgba(230, 200, 220, 0.6); /* Lila */
             transform: translateX(-50%) rotate(5deg);
-            border-left: 2px dashed rgba(255, 255, 255, 0.4);
-            border-right: 2px dashed rgba(255, 255, 255, 0.4);
+            border-left: 3px dotted rgba(255, 255, 255, 0.5);
+            border-right: 3px dotted rgba(255, 255, 255, 0.5);
         }
 
         .tarjeta-recuerdo:hover {
@@ -303,14 +457,13 @@
             height: 310px;
             overflow: hidden;
             border-radius: 1px;
-            background-color: #ECE7E1; /* Color provisional de carga */
+            background-color: #ECE7E1;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        /* Placeholder elegante si la imagen tarda en cargar o no existe */
         .tarjeta-imagen-wrapper::before {
             content: "📸";
             font-size: 2rem;
@@ -343,6 +496,159 @@
             font-size: 0.95rem;
             color: #6E635C;
             line-height: 1.5;
+        }
+
+        /* ======================================================================
+           NUEVOS ESTILOS: EL TAMAGOTCHI RETRO Y AVATAR MEJORADO (SIN PELONA)
+           ====================================================================== */
+        .seccion-tamagotchi {
+            margin: 60px auto;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        .tamagotchi-carcasa {
+            width: 290px;
+            height: 360px;
+            background: #F4ACB7; /* Rosa Pastel */
+            border-radius: 150px 150px 130px 130px;
+            margin: 0 auto;
+            border: 8px solid #FFF;
+            box-shadow: inset -12px -12px 0px rgba(0,0,0,0.1), 0 12px 28px rgba(0,0,0,0.15);
+            padding: 35px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .tamagotchi-pantalla {
+            width: 190px;
+            height: 160px;
+            background: #CAD2C5; /* LCD clásica verde */
+            border: 10px solid #CCD5AE;
+            border-radius: 10px;
+            box-shadow: inset 3px 3px 0px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tamagotchi-pantalla::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .pixel-avatar {
+            width: 90px;
+            height: 90px;
+            image-rendering: pixelated;
+            transition: transform 0.2s ease;
+        }
+
+        /* Control de visualización por clases CSS (Altamente estable) */
+        #avatarVisual #capaSudadera { display: none; }
+        #avatarVisual #capaAudifonos { display: none; }
+        #avatarVisual #capaCardigan { display: block; }
+
+        #avatarVisual.con-sudadera #capaSudadera { display: block; }
+        #avatarVisual.con-sudadera #capaCardigan { display: none; }
+        #avatarVisual.con-audifonos #capaAudifonos { display: block; }
+
+        /* Animaciones 8-bits */
+        .avatar-bailando {
+            animation: bailePixel 0.6s steps(2) infinite;
+        }
+
+        .avatar-saltando {
+            animation: saltoPixel 0.4s ease-in-out infinite alternate;
+        }
+
+        .tamagotchi-botones {
+            display: flex;
+            justify-content: space-between;
+            width: 170px;
+            margin-top: 30px;
+        }
+
+        .tamagotchi-btn {
+            width: 40px;
+            height: 40px;
+            background: #E9C46A; /* Botones amarillos clásicos */
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #C69F3C, inset -2px -2px 0px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.1s;
+            pointer-events: auto;
+        }
+
+        .tamagotchi-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0px #C69F3C;
+        }
+
+        .tamagotchi-alerta {
+            position: absolute;
+            top: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #3D342E;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .tamagotchi-alerta.visible {
+            opacity: 1;
+        }
+
+        .objeto-pixel-comida {
+            position: absolute;
+            width: 20px;
+            height: 25px;
+            background-color: #E76F51;
+            border: 2px solid #FFF;
+            border-radius: 2px;
+            bottom: 25px;
+            left: 20px;
+            display: none;
+            animation: flotarObjeto 1s ease-in-out infinite alternate;
+        }
+
+        .objeto-pixel-comida.visible {
+            display: block;
+        }
+
+        @keyframes bailePixel {
+            0%, 100% { transform: scaleX(1) translateY(0); }
+            50% { transform: scaleX(-1) translateY(-2px); }
+        }
+
+        @keyframes saltoPixel {
+            from { transform: translateY(0); }
+            to { transform: translateY(-12px); }
+        }
+
+        @keyframes flotarObjeto {
+            from { transform: translateY(0); }
+            to { transform: translateY(-4px); }
         }
 
         /* ======================================================================
@@ -451,7 +757,7 @@
         }
 
         /* ======================================================================
-           AVATAR PIXEL ART (Acompañante interactivo mejorado)
+           AVATAR PIXEL ART (Vaquita interactiva mejorada)
            ====================================================================== */
         .avatar-pixel-container {
             position: fixed;
@@ -588,7 +894,7 @@
 
         /* Partícula de la explosión del botón */
         .particula-explosion {
-            position: absolute; /* Cambiado a absoluto para anclarse correctamente con el scroll de la página */
+            position: absolute; /* Anclado con el scroll de la página */
             pointer-events: none;
             z-index: 9999;
             user-select: none;
@@ -662,31 +968,83 @@
     <!-- ====================================================================== -->
     <div class="contenedor" id="contenidoPrincipal">
 
-        <!-- REPRODUCTOR DE MÚSICA -->
-        <section class="seccion-musica">
-            <div class="reproductor">
-                <button class="reproductor-boton" id="botonPlay" onclick="conmutarReproductor()">
-                    <!-- Icono Play -->
-                    <svg id="iconoPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    <!-- Icono Pause -->
-                    <svg id="iconoPause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-                
-                <div class="reproductor-info">
-                    <span class="reproductor-titulo">🎵 Harry Styles - Lights Up</span>
-                    <span class="reproductor-sub" id="nombreCancion">Cargando canción...</span>
-                </div>
-                
-                <audio id="musicaFondo" loop preload="auto">
-                    <!-- ========================================== -->
-                    <!-- MUSICA_FONDO                               -->
-                    <!-- Colocar archivo mp3 dentro de /music       -->
-                    <!-- Ejemplo: music/cancion.mp3            -->
-                    <!-- ========================================== -->
-                    <source src="music/cancion.mp3" type="audio/mpeg">
-                    Tu navegador no soporta el audio.
-                </audio>
+        <!-- ====================================================================== -->
+        <!-- SECCIÓN 1: TOCADISCOS LOCAL INTERACTIVO (AL INICIO)                    -->
+        <!-- ====================================================================== -->
+        <section class="seccion-tocadiscos">
+            
+            <!-- TÍTULO EN ESTILO RECORTE DE REVISTA (Con clase para llamar la atención) -->
+            <div class="recorte-revista-contenedor llamar-atencion">
+                <span>🕹️</span><span>S</span><span>e</span><span>l</span><span>e</span><span>c</span><span>c</span><span>i</span><span>o</span><span>n</span><span>a</span>
+                <span>u</span><span>n</span>
+                <span>D</span><span>i</span><span>s</span><span>c</span><span>o</span>
+                <span>p</span><span>a</span><span>r</span><span>a</span>
+                <span>T</span><span>o</span><span>c</span><span>a</span><span>r</span>
             </div>
+
+            <div class="tocadiscos-layout">
+                
+                <!-- Pila de Vinilos Locales -->
+                <div class="pila-discos">
+                    <!-- ========================================== -->
+                    <!-- CONFIGURACIÓN DE PISTAS LOCALES            -->
+                    <!-- Estructura: 'Nombre Archivo', 'Color Etiqueta', 'Ruta Imagen Portada' -->
+                    <!-- ========================================== -->
+                    <div class="disco-item" onclick="cargarDiscoLocal('lights_up', '#E76F51', 'music_portada/lights_up.jpg')">
+                        <div class="disco-color-previa" style="background-image: url('music_portada/lights_up.jpg');"></div>
+                        <span class="disco-titulo-cancion">1. Lights Up</span>
+                    </div>
+                    
+                    <div class="disco-item" onclick="cargarDiscoLocal('golden', '#2A9D8F', 'music_portada/golden.jpg')">
+                        <div class="disco-color-previa" style="background-image: url('music_portada/golden.jpg');"></div>
+                        <span class="disco-titulo-cancion">2. Golden</span>
+                    </div>
+                    
+                    <div class="disco-item" onclick="cargarDiscoLocal('adore_you', '#E9C46A', 'music_portada/adore_you.jpg')">
+                        <div class="disco-color-previa" style="background-image: url('music_portada/adore_you.jpg');"></div>
+                        <span class="disco-titulo-cancion">3. Adore You</span>
+                    </div>
+                    
+                    <div class="disco-item" onclick="cargarDiscoLocal('late_night_talking', '#F4ACB7', 'music_portada/late_night_talking.jpg')">
+                        <div class="disco-color-previa" style="background-image: url('music_portada/late_night_talking.jpg');"></div>
+                        <span class="disco-titulo-cancion">4. Late Night Talking</span>
+                    </div>
+                    
+                    <div class="disco-item" onclick="cargarDiscoLocal('matilda', '#264653', 'music_portada/matilda.jpg')">
+                        <div class="disco-color-previa" style="background-image: url('music_portada/matilda.jpg');"></div>
+                        <span class="disco-titulo-cancion">5. Matilda</span>
+                    </div>
+                </div>
+
+                <!-- Aparato Tocadiscos Vintage -->
+                <div class="tocadiscos-aparato">
+                    <div class="tocadiscos-plato">
+                        <!-- Vinilo que aparece al cargarse -->
+                        <div class="vinilo-reproduciendo" id="viniloFisico">
+                            <div class="vinilo-centro-portada" id="viniloCentroWrapper">
+                                <img id="portadaDiscoCentral" src="" alt="Album Art" onerror="this.style.display='none';">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Brazo con aguja -->
+                    <div class="tocadiscos-brazo" id="brazoTocadiscos">
+                        <div class="tocadiscos-brazo-metal">
+                            <div class="tocadiscos-brazo-cabezal"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Reproductor de Audio HTML5 oculto (Controla la música de fondo seleccionada) -->
+            <div class="reproductor-estatus-pista">
+                <span id="nombreCancion">Escoge un vinilo para reproducir música ✦</span>
+            </div>
+            
+            <audio id="musicaFondo" loop preload="auto">
+                <source id="fuenteAudioMp3" src="" type="audio/mpeg">
+                Tu navegador no soporta el audio.
+            </audio>
         </section>
 
         <!-- SECCIÓN DE FOTOGRAFÍAS -->
@@ -698,12 +1056,9 @@
             <div class="grid-album">
 
                 <!-- TARJETA 1: CHESTER -->
+                <!-- FOTO_CHESTER -->
                 <div class="tarjeta-recuerdo">
                     <div class="tarjeta-imagen-wrapper">
-                        <!-- ========================================== -->
-                        <!-- FOTO_CHESTER                               -->
-                        <!-- Reemplazar archivo: fotos/chester.jpg      -->
-                        <!-- ========================================== -->
                         <img src="fotos/chester.jpg" alt="Chester" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
@@ -714,12 +1069,9 @@
                 </div>
 
                 <!-- TARJETA 2: MINION -->
+                <!-- FOTO_MINION -->
                 <div class="tarjeta-recuerdo">
                     <div class="tarjeta-imagen-wrapper">
-                        <!-- ========================================== -->
-                        <!-- FOTO_MINION                                -->
-                        <!-- Reemplazar archivo: fotos/minion.jpg       -->
-                        <!-- ========================================== -->
                         <img src="fotos/minion.jpg" alt="Minion" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
@@ -730,12 +1082,9 @@
                 </div>
 
                 <!-- TARJETA 3: GRADUACION ARLETHE -->
+                <!-- FOTO_GRADUACION -->
                 <div class="tarjeta-recuerdo">
                     <div class="tarjeta-imagen-wrapper">
-                        <!-- ========================================== -->
-                        <!-- FOTO_GRADUACION                            -->
-                        <!-- Reemplazar archivo: fotos/graduacion.jpg   -->
-                        <!-- ========================================== -->
                         <img src="fotos/graduacion.jpg" alt="Graduación" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
@@ -746,12 +1095,9 @@
                 </div>
 
                 <!-- TARJETA 4: TITULO -->
+                <!-- FOTO_TITULO -->
                 <div class="tarjeta-recuerdo">
                     <div class="tarjeta-imagen-wrapper">
-                        <!-- ========================================== -->
-                        <!-- FOTO_TITULO                                -->
-                        <!-- Reemplazar archivo: fotos/titulo.jpg       -->
-                        <!-- ========================================== -->
                         <img src="fotos/titulo.jpg" alt="Título obtenido" class="tarjeta-imagen" onerror="this.onerror=null; this.style.display='none';">
                     </div>
                     <div class="tarjeta-texto">
@@ -764,16 +1110,102 @@
             </div>
         </section>
 
+        <!-- ====================================================================== -->
+        <!-- SECCIÓN: TAMAGOTCHI RETRO CON AVATAR PIXEL ART MEJORADO (SIN PELONA)   -->
+        <!-- ====================================================================== -->
+        <section class="seccion-tamagotchi">
+            
+            <!-- TÍTULO EN ESTILO RECORTE DE REVISTA (Ransom note) -->
+            <div class="recorte-revista-contenedor">
+                <span>👾</span><span>T</span><span>A</span><span>M</span><span>A</span><span>G</span><span>O</span><span>T</span><span>C</span><span>H</span><span>I</span>
+            </div>
+
+            <div class="tamagotchi-carcasa">
+                <!-- Pantalla LCD clásica del Tamagotchi -->
+                <div class="tamagotchi-pantalla">
+                    <div class="tamagotchi-alerta" id="tamagotchiAlerta">¡Hola!</div>
+                    <div class="objeto-pixel-comida" id="cheetosPixel"></div>
+                    
+                    <!-- AVATAR PIXEL ART (Generado con SVG para pixeles puros de 8-bits - Cabello abundante) -->
+                    <svg class="pixel-avatar" id="avatarVisual" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="shape-rendering: crispEdges;">
+                        
+                        <!-- CABELLO NEGRO COMPLETO (Abundante, denso, lacio, caída hasta los hombros, partido a la mitad) -->
+                        <g fill="#1A1A1A">
+                            <!-- Corona y parte superior del cabello (Sin calvas) -->
+                            <rect x="10" y="2" width="12" height="1" />
+                            <rect x="8" y="3" width="16" height="1" />
+                            <rect x="7" y="4" width="18" height="1" />
+                            <rect x="6" y="5" width="20" height="1" />
+                            
+                            <!-- Flequillo partido a la mitad -->
+                            <rect x="5" y="6" width="10" height="2" />
+                            <rect x="17" y="6" width="10" height="2" />
+                            <rect x="4" y="8" width="10" height="2" />
+                            <rect x="18" y="8" width="10" height="2" />
+                            
+                            <!-- Mechones que bajan cubriendo los laterales de las orejas y llegan a los hombros -->
+                            <rect x="3" y="10" width="6" height="11" />
+                            <rect x="23" y="10" width="6" height="11" />
+                            <rect x="2" y="14" width="2" height="6" />
+                            <rect x="28" y="14" width="2" height="6" />
+                        </g>
+                        
+                        <!-- ROSTRO Y PIEL CUTE -->
+                        <path d="M10 8h12v1H10zm-1 1h14v1H9zm-1 2h16v1H8zm0 1h16v1H8zm0 1h16v1H8zm0 1h16v1H8zm1 1h14v1H9zm1 1h12v1H10z" fill="#FCD5B5" />
+                        <!-- OJOS (Pixeles negros de expresión tierna) -->
+                        <rect x="10" y="11" width="2" height="2" fill="#1A1A1A" />
+                        <rect x="20" y="11" width="2" height="2" fill="#1A1A1A" />
+                        <!-- MEJILLAS ROSADAS -->
+                        <rect x="9" y="13" width="2" height="1" fill="#F4ACB7" />
+                        <rect x="21" y="13" width="2" height="1" fill="#F4ACB7" />
+                        
+                        <!-- PLAYERA BLANCA (BASE DE ROPA) -->
+                        <path d="M11 18h10v1H11zm-1 1h12v1H10zm-1 2h14v1H9z" fill="#FFFFFF" />
+
+                        <!-- CARDIGAN ROSA (Visible por defecto) -->
+                        <g id="capaCardigan">
+                            <path d="M9 18h2v1H9zm12 0h2v1h-2zm-3 1h5v1h-5zM9 19h5v1H9zm0 1h14v1H9zm0 2h14v1H9z" fill="#F4ACB7" />
+                        </g>
+
+                        <!-- SUDADERA COZY VERDE SALVIA (Oculta por defecto) -->
+                        <g id="capaSudadera">
+                            <path d="M8 18h16v1H8zm-1 1h18v1H7zm-1 2h20v1H6zm0 1h20v1H6zm1 2h18v1H7z" fill="#2A9D8F" />
+                            <rect x="13" y="19" width="6" height="3" fill="#20776D" /> <!-- Bolsa del suéter -->
+                        </g>
+
+                        <!-- JEANS AZUL CLARO DE TIRO ALTO -->
+                        <path d="M9 23h14v1H9zm0 1h14v1H9zm0 2h6v1H9zm8 0h6v1h-6zm-8 1h5v1H9zm9 0h5v1h-5z" fill="#7AA0C2" />
+                        
+                        <!-- TENIS BLANCOS -->
+                        <path d="M8 29h6v1H8zm10 0h6v1h-6z" fill="#FFFFFF" />
+                        <path d="M8 30h4v1H8zm10 0h4v1h-10z" fill="#CCCCCC" />
+
+                        <!-- RETRO AUDÍFONOS (Para el "Modo Harry", oculto por defecto) -->
+                        <g id="capaAudifonos">
+                            <path d="M9 4h14v1H9zm-2 1h2v1H7zm16 0h2v1h-2zm-2 1h1v5h-1zm-15 0h1v5H7zm-1 5h3v2H6zm14 0h3v2h-3z" fill="#E9C46A" />
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Botones de Interacción del Juguete -->
+                <div class="tamagotchi-botones">
+                    <!-- Botón Dar Cheetos -->
+                    <button class="tamagotchi-btn" id="btnCheetos" onclick="darCheetos()" title="Dar Cheetos">🍟</button>
+                    <!-- Botón Sudadera -->
+                    <button class="tamagotchi-btn" id="btnSudadera" onclick="ponerSudadera()" title="Poner Sudadera">🧥</button>
+                    <!-- Botón Modo Harry -->
+                    <button class="tamagotchi-btn" id="btnModoHarry" onclick="modoHarry()" title="Modo Harry">🎧</button>
+                </div>
+            </div>
+        </section>
+
         <!-- SECCIÓN DE VIDEO -->
+        <!-- VIDEO_TUBA -->
         <section class="seccion-video">
             <div class="seccion-titulo">
                 <h3>Un Momento Especial</h3>
             </div>
             <div class="contenedor-video">
-                <!-- ========================================== -->
-                <!-- VIDEO_TUBA                                 -->
-                <!-- Reemplazar archivo: videos/tuba.mp4        -->
-                <!-- ========================================== -->
                 <video controls poster="https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=800">
                     <source src="videos/tuba.mp4" type="video/mp4">
                     Tu navegador no soporta el formato de video.
@@ -854,6 +1286,7 @@
         const pantallaInicio = document.getElementById('pantallaInicio');
         const contenidoPrincipal = document.getElementById('contenidoPrincipal');
         const musicaFondo = document.getElementById('musicaFondo');
+        const fuenteAudioMp3 = document.getElementById('fuenteAudioMp3');
         const botonPlay = document.getElementById('botonPlay');
         const iconoPlay = document.getElementById('iconoPlay');
         const iconoPause = document.getElementById('iconoPause');
@@ -877,21 +1310,6 @@
         ];
         let fraseActualIndex = 0;
 
-        // Extraer nombre amigable de la canción de manera segura (No bloquea ejecución si falla)
-        try {
-            const sourceTag = musicaFondo.querySelector('source');
-            if (sourceTag && sourceTag.src) {
-                const fuenteAudio = sourceTag.src;
-                const nombreArchivo = fuenteAudio.substring(fuenteAudio.lastIndexOf('/') + 1);
-                nombreCancion.textContent = decodeURIComponent(nombreArchivo).replace(/_/g, ' ');
-            } else {
-                nombreCancion.textContent = "cancion.mp3";
-            }
-        } catch (e) {
-            console.log("No se pudo extraer la etiqueta de fuente de audio de manera automática:", e);
-            nombreCancion.textContent = "cancion.mp3";
-        }
-
         // Función para dar inicio tras el clic en la bienvenida (Sólida, a prueba de bloqueos)
         function desbloquearRegalo() {
             try {
@@ -905,42 +1323,19 @@
                     contenidoPrincipal.style.opacity = '1';
                 }, 50);
 
-                // Iniciar música
-                comenzarMusica();
-
                 // Lanzar los elementos flotantes
                 iniciarElementosDecorativos();
 
                 // Saludo inicial de la vaquita
                 setTimeout(() => {
-                    desplegarMensajeAvatar("¡Hola Arlethe! Qué lindo verte por aquí. 🐮");
+                    desplegarMensajeAvatar("¡Hola Arlethe! Qué lindo verte. Escoge tu canción favorita en el tocadiscos para empezar 🐮📻");
                 }, 2000);
             } catch (err) {
                 console.error("Error en desbloquearRegalo:", err);
             }
         }
 
-        // Intento de reproducción de música seguro
-        function comenzarMusica() {
-            try {
-                const playPromise = musicaFondo.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        actualizarInterfazAudio(true);
-                    }).catch(e => {
-                        console.log("La reproducción automática fue bloqueada por el navegador o requiere interacción directa.");
-                        actualizarInterfazAudio(false);
-                    });
-                } else {
-                    actualizarInterfazAudio(true);
-                }
-            } catch (e) {
-                console.log("Error intentando reproducir el audio de fondo:", e);
-                actualizarInterfazAudio(false);
-            }
-        }
-
-        // Play / Pause manual
+        // Play / Pause manual desde el reproductor superior
         function conmutarReproductor() {
             try {
                 if (musicaFondo.paused) {
@@ -1086,6 +1481,133 @@
                 }, 1000);
             } catch (err) {
                 console.log("Error al ejecutar animación de celebración:", err);
+            }
+        }
+
+        // ======================================================================
+        // NUEVA INTERACTIVIDAD: EL TOCADISCOS LOCAL REPRODUCIENDO .MP3 Y COVERS
+        // ======================================================================
+        function cargarDiscoLocal(nombreArchivo, colorEtiqueta, rutaPortada) {
+            try {
+                const vinilo = document.getElementById('viniloFisico');
+                const brazo = document.getElementById('brazoTocadiscos');
+                const imagenPortada = document.getElementById('portadaDiscoCentral');
+                
+                // Detener giro del disco y mover brazo hacia atrás
+                vinilo.classList.remove('girando');
+                brazo.classList.remove('colocado');
+
+                setTimeout(() => {
+                    // Configurar la nueva fuente de audio con el .mp3 de la carpeta /music
+                    musicaFondo.pause();
+                    fuenteAudioMp3.src = 'music/' + nombreArchivo + '.mp3';
+                    musicaFondo.load();
+
+                    // Cambiar el estilo de color y asignar la portada de álbum física
+                    document.documentElement.style.setProperty('--color-disco-activo', colorEtiqueta);
+                    imagenPortada.src = rutaPortada;
+                    imagenPortada.style.display = 'block';
+
+                    // Colocar brazo en posición y girar vinilo
+                    brazo.classList.add('colocado');
+                    vinilo.classList.add('girando');
+
+                    // Formatear texto en pantalla de forma bonita
+                    const cancionFormateada = nombreArchivo.replace(/_/g, ' ').toUpperCase();
+                    nombreCancion.textContent = "Reproduciendo: " + cancionFormateada;
+
+                    // Intentar reproducir el archivo de audio local
+                    const playPromise = musicaFondo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            actualizarInterfazAudio(true);
+                        }).catch(err => {
+                            console.log("Error en reproducción automática:", err);
+                        });
+                    }
+                }, 600);
+
+            } catch (error) {
+                console.log("Error al cargar canción local en tocadiscos:", error);
+            }
+        }
+
+        // ======================================================================
+        // NUEVA INTERACTIVIDAD: EL TAMAGOTCHI (CLASES CSS SOLIDAS)
+        // ======================================================================
+        const avatar = document.getElementById('avatarVisual');
+        const alerta = document.getElementById('tamagotchiAlerta');
+        const cheetos = document.getElementById('cheetosPixel');
+
+        let temporizadorLimpiezaAvatar;
+
+        // Limpia clases de animación y estados
+        function resetearAvatar() {
+            avatar.className = 'pixel-avatar';
+            avatar.classList.remove('con-sudadera');
+            avatar.classList.remove('con-audifonos');
+            cheetos.classList.remove('visible');
+            alerta.classList.remove('visible');
+        }
+
+        // Acción 1: Dar Cheetos
+        function darCheetos() {
+            try {
+                resetearAvatar();
+                clearTimeout(temporizadorLimpiezaAvatar);
+
+                cheetos.classList.add('visible');
+                alerta.textContent = "¡Nivel de antojo resuelto! 🍟🔥";
+                alerta.classList.add('visible');
+
+                // Bailecito LCD clásico
+                avatar.classList.add('avatar-bailando');
+
+                temporizadorLimpiezaAvatar = setTimeout(() => {
+                    resetearAvatar();
+                }, 4000);
+            } catch (e) {
+                console.log("Error en Dar Cheetos:", e);
+            }
+        }
+
+        // Acción 2: Poner Sudadera Cozy (Manipula clases CSS robustamente)
+        function ponerSudadera() {
+            try {
+                clearTimeout(temporizadorLimpiezaAvatar);
+                
+                // Mostrar alerta
+                alerta.textContent = "¡Misión anti-frío activada! 📦✨";
+                alerta.classList.add('visible');
+
+                // Toggle robusto de la clase sudadera sobre el SVG
+                avatar.classList.toggle('con-sudadera');
+
+                temporizadorLimpiezaAvatar = setTimeout(() => {
+                    alerta.classList.remove('visible');
+                }, 3500);
+            } catch (e) {
+                console.log("Error en Sudadera:", e);
+            }
+        }
+
+        // Acción 3: Modo Harry (Ponérsele audífonos de 8-bits y saltar)
+        function modoHarry() {
+            try {
+                resetearAvatar();
+                clearTimeout(temporizadorLimpiezaAvatar);
+
+                avatar.classList.add('con-audifonos');
+                avatar.classList.add('avatar-saltando');
+
+                alerta.textContent = "¡Viviendo en el Fine Line! 🎧🍒";
+                alerta.classList.add('visible');
+
+                temporizadorLimpiezaAvatar = setTimeout(() => {
+                    resetearAvatar();
+                }, 5000);
+            } catch (e) {
+                console.log("Error en Modo Harry:", e);
             }
         }
     </script>
