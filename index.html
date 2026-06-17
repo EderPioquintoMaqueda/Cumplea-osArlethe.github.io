@@ -499,7 +499,7 @@
         }
 
         /* ======================================================================
-           NUEVOS ESTILOS: EL TAMAGOTCHI RETRO Y AVATAR MEJORADO (CON CABELLO ABUNDANTE)
+           NUEVOS ESTILOS: EL TAMAGOTCHI RETRO Y AVATAR MEJORADO (SIN PELONA)
            ====================================================================== */
         .seccion-tamagotchi {
             margin: 60px auto;
@@ -554,21 +554,21 @@
             transition: transform 0.2s ease;
         }
 
-        /* Control de visualización por clases CSS (Estable, previene fallos) */
-        #avatarVisual #capaSudadera { display: none; }
-        #avatarVisual #capaAudifonos { display: none; }
-        #avatarVisual #capaCardigan { display: block; }
+        /* Control de visualización por clases CSS en la pantalla (Compatibilidad total en móviles) */
+        .tamagotchi-pantalla #capaSudadera { display: none; }
+        .tamagotchi-pantalla #capaAudifonos { display: none; }
+        .tamagotchi-pantalla #capaCardigan { display: block; }
 
-        #avatarVisual.con-sudadera #capaSudadera { display: block; }
-        #avatarVisual.con-sudadera #capaCardigan { display: none; }
-        #avatarVisual.con-audifonos #capaAudifonos { display: block; }
+        .tamagotchi-pantalla.con-sudadera #capaSudadera { display: block; }
+        .tamagotchi-pantalla.con-sudadera #capaCardigan { display: none; }
+        .tamagotchi-pantalla.con-audifonos #capaAudifonos { display: block; }
 
-        /* Animaciones 8-bits */
-        .avatar-bailando {
+        /* Animaciones 8-bits sobre la pantalla */
+        .tamagotchi-pantalla.bailando #avatarVisual {
             animation: bailePixel 0.6s steps(2) infinite;
         }
 
-        .avatar-saltando {
+        .tamagotchi-pantalla.saltando #avatarVisual {
             animation: saltoPixel 0.4s ease-in-out infinite alternate;
         }
 
@@ -1119,7 +1119,7 @@
 
             <div class="tamagotchi-carcasa">
                 <!-- Pantalla LCD clásica del Tamagotchi -->
-                <div class="tamagotchi-pantalla">
+                <div class="tamagotchi-pantalla" id="tamagotchiPantalla">
                     <div class="tamagotchi-alerta" id="tamagotchiAlerta">¡Hola!</div>
                     <div class="objeto-pixel-comida" id="cheetosPixel"></div>
                     
@@ -1164,10 +1164,10 @@
                             <path d="M9 18h2v1H9zm12 0h2v1h-2zm-3 1h5v1h-5zM9 19h5v1H9zm0 1h14v1H9zm0 2h14v1H9z" fill="#F4ACB7" />
                         </g>
 
-                        <!-- SUDADERA COZY VERDE SALVIA (Oculta por defecto) -->
+                        <!-- SUDADERA COZY ROJA (Oculta por defecto - Ajustada a color rojo) -->
                         <g id="capaSudadera">
-                            <path d="M8 18h16v1H8zm-1 1h18v1H7zm-1 2h20v1H6zm0 1h20v1H6zm1 2h18v1H7z" fill="#2A9D8F" />
-                            <rect x="13" y="19" width="6" height="3" fill="#20776D" /> <!-- Bolsa del suéter -->
+                            <path d="M8 18h16v1H8zm-1 1h18v1H7zm-1 2h20v1H6zm0 1h20v1H6zm1 2h18v1H7z" fill="#D9383A" /> <!-- Sudadera Roja -->
+                            <rect x="13" y="19" width="6" height="3" fill="#A82325" /> <!-- Detalles bolsa roja oscura -->
                         </g>
 
                         <!-- JEANS AZUL CLARO DE TIRO ALTO -->
@@ -1294,7 +1294,13 @@
         const vaquitaSvg = document.getElementById('vaquitaSvg');
         const pistaVisual = document.getElementById('pistaVisual');
 
-        // Frases secretas del avatar
+        // Elementos del Tamagotchi
+        const tamagotchiPantalla = document.getElementById('tamagotchiPantalla');
+        const avatar = document.getElementById('avatarVisual');
+        const alerta = document.getElementById('tamagotchiAlerta');
+        const cheetos = document.getElementById('cheetosPixel');
+
+        // Frases secretas del avatar vaquita
         const frasesAvatar = [
             "Muu-chas felicidades, Arlethe 🐄",
             "Eres una persona muuu-y valiosa. ✨",
@@ -1305,6 +1311,9 @@
             "Sigue bajando, hay cosas lindas por leer."
         ];
         let fraseActualIndex = 0;
+
+        // Configuración inicial amigable
+        nombreCancion.textContent = "Selecciona un disco para empezar ✦";
 
         // Función para dar inicio tras el clic en la bienvenida (Sólida, a prueba de bloqueos)
         function desbloquearRegalo() {
@@ -1328,21 +1337,6 @@
                 }, 2000);
             } catch (err) {
                 console.error("Error en desbloquearRegalo:", err);
-            }
-        }
-
-        // Play / Pause manual
-        function conmutarReproductor() {
-            try {
-                if (musicaFondo.paused) {
-                    musicaFondo.play();
-                    actualizarInterfazAudio(true);
-                } else {
-                    musicaFondo.pause();
-                    actualizarInterfazAudio(false);
-                }
-            } catch (e) {
-                console.log("Error al pausar o reproducir audio:", e);
             }
         }
 
@@ -1529,19 +1523,13 @@
         }
 
         // ======================================================================
-        // NUEVA INTERACTIVIDAD CORREGIDA: EL TAMAGOTCHI (CLASES CSS SOLIDAS)
+        // NUEVA INTERACTIVIDAD CORREGIDA: EL TAMAGOTCHI (CLASES CSS SOLIDAS SOBRE PANTALLA)
         // ======================================================================
-        const avatar = document.getElementById('avatarVisual');
-        const alerta = document.getElementById('tamagotchiAlerta');
-        const cheetos = document.getElementById('cheetosPixel');
-
         let temporizadorLimpiezaAvatar;
 
-        // Limpia clases de animación y estados de ropa/audífonos
+        // Limpia clases de animación y estados de ropa/audífonos en el Tamagotchi
         function resetearAvatar() {
-            avatar.className = 'pixel-avatar';
-            avatar.classList.remove('con-sudadera');
-            avatar.classList.remove('con-audifonos');
+            tamagotchiPantalla.className = 'tamagotchi-pantalla';
             cheetos.classList.remove('visible');
             alerta.classList.remove('visible');
         }
@@ -1556,8 +1544,8 @@
                 alerta.textContent = "¡Nivel de antojo resuelto! 🍟🔥";
                 alerta.classList.add('visible');
 
-                // Bailecito LCD clásico
-                avatar.classList.add('avatar-bailando');
+                // Bailecito clásico
+                tamagotchiPantalla.classList.add('bailando');
 
                 temporizadorLimpiezaAvatar = setTimeout(() => {
                     resetearAvatar();
@@ -1567,7 +1555,7 @@
             }
         }
 
-        // Acción 2: Poner Sudadera Cozy (Manipula clases CSS de forma robusta)
+        // Acción 2: Poner Sudadera Cozy Roja (Manipula clases CSS de forma robusta)
         function ponerSudadera() {
             try {
                 clearTimeout(temporizadorLimpiezaAvatar);
@@ -1576,8 +1564,8 @@
                 alerta.textContent = "¡Misión anti-frío activada! 📦✨";
                 alerta.classList.add('visible');
 
-                // Toggle de la clase sudadera sobre el SVG
-                avatar.classList.toggle('con-sudadera');
+                // Toggle de la clase sudadera sobre la pantalla
+                tamagotchiPantalla.classList.toggle('con-sudadera');
 
                 temporizadorLimpiezaAvatar = setTimeout(() => {
                     alerta.classList.remove('visible');
@@ -1593,8 +1581,8 @@
                 resetearAvatar();
                 clearTimeout(temporizadorLimpiezaAvatar);
 
-                avatar.classList.add('con-audifonos');
-                avatar.classList.add('avatar-saltando');
+                tamagotchiPantalla.classList.add('con-audifonos');
+                tamagotchiPantalla.classList.add('saltando');
 
                 alerta.textContent = "¡Viviendo en el Fine Line! 🎧🍒";
                 alerta.classList.add('visible');
